@@ -13,10 +13,15 @@ ms.topic: article
 ms.assetid: 02bc6bd4-ca53-4e22-8b80-d8ee5fe72567
 caps.latest.revision: 15
 caps.handback.revision: 0
-author: Dougebyms.author: dougebymanager: angrobe
+author: Dougeby
+ms.author: dougeby
+manager: angrobe
 
 ---
-# Task sequence built-in variables in System Center Configuration Manager*Applies to: System Center Configuration Manager (Current Branch)*
+# Task sequence built-in variables in System Center Configuration Manager
+
+*Applies to: System Center Configuration Manager (Current Branch)*
+
 
  Task sequence built-in variables are provided by System Center Configuration Manager. Built-in variables provide information about the environment where the task sequence is running, and their values are available throughout the whole task sequence. Typically, built-in variables are initialized before steps are run in the task sequence. For example, the built-in variable **_SMSTSLogPath** is an environment variable that specifies the path that Configuration Manager components use to write log files while the task sequence runs; any task sequence step can access this environment variable. However, some variables, such as &#95;SMSTSCurrentActionName, are evaluated before each step. The values of built-in variables are generally read-only. The values are read only for built-in variables with a name that begins with an underscore.  
 
@@ -88,6 +93,6 @@ author: Dougebyms.author: dougebymanager: angrobe
 |SMSTSRebootMessage|Specifies the message to display in the shutdown dialog box when a restart is requested. If this variable is not set, a default message will appear.<br /><br /> Example:<br /><br /> **This computer is being restarted by the task sequence manager**.|  
 |SMSTSRebootRequested|Indicates that a restart is requested after the current task sequence step is completed. If a restart is required, just set this variable to **true**, and the task sequence manager will restart the computer after this task sequence step. The task sequence step must set this task sequence variable if it requires the restart to complete the task sequence step. After the computer is restarted, the task sequence will continue to run from the next task sequence step.|  
 |SMSTSRetryRequested|Requests a retry after the current task sequence step is completed. If this task sequence variable is set, the **SMSTSRebootRequested** must also be set to **true**. After the computer is restarted, the task sequence manager will rerun the same task sequence step.|  
-|SMSTSSoftwareUpdateScanTimeout| Gives you the ability to control the timeout for the software updates scan during the [Install Software Updates](task-sequence-steps.md#BKMK_InstallSoftwareUpdates) task sequence step. For example, you might increase the default value if you have a lot of software updates to install. The default value is 30 minutes. |
+|SMSTSSoftwareUpdateScanTimeout| Gives you the ability to control the timeout for the software updates scan during the [Install Software Updates](task-sequence-steps.md#BKMK_InstallSoftwareUpdates) task sequence step. For example, you might increase the default value if you have a lot of software updates to install. The default value is 30 minutes (1800 seconds). Value has to be specified in seconds. |
 |SMSTSUDAUsers|Specifies the primary user of the destination computer. Specify the users by using the following format. Separate multiple users by using a comma (,).<br /><br /> Example:<br /><br /> **domain\user1, domain\user2, domain\user3**<br /><br /> For more information about associating users with the destination computer, see [Associate users with a destination computer](../get-started/associate-users-with-a-destination-computer.md).|  
 |SMSTSWaitForSecondReboot|Beginning in Configuration Manager version 1602, this optional task sequence variable is available to help control client behavior when a software update installation requires two restarts. This variable must be set before the [Install Software Updates](task-sequence-steps.md#BKMK_InstallSoftwareUpdates) step to prevent a task sequence from failing because of a second restart from software update installation.<br /><br /> Set the SMSTSWaitForSecondReboot value in seconds to specify how long the task sequence pauses during the Install Software Updates step when the computer restarts to allow sufficient time in case there is a second restart. <br />For example, if you set SMSTSWaitForSecondReboot to 600, the task sequence is paused for 10 minutes after a restart before additional task sequence steps run. This is useful when hundreds of software updates are installed in a single Install Software Updates task sequence step.|  
